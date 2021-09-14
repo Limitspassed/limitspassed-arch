@@ -50,15 +50,16 @@ export hostname=$host
 echo -n "what is your locale?  ex: America/Phoenix "
 read local
 export locale=$timezone
-echo -n "what is your country? ie: United States "
-read countrycode
-export country=$countrycode
 
 export lang="en_US.UTF-8"
 export locale="en_US.UTF-8 UTF-8"
 
+pacman -Sy  efibootmgr vim base base-devel nano grub lvm2 networkmanager sudo iwd systemd openssh nano firefox efibootmgr --noconfirm
+
+grub-install --target=x86_64-efi --efi-directory=/boot/efi
+grub-mkconfig -o /boot/grub/grub.cfg
 mkinitcpio -p linux
-pacman -Sy  efibootmgr vim base-devel lvm2 nano grub lvm2 networkmanager sudo iwd systemd openssh nano firefox efibootmgr --noconfirm
+
 echo $hostname > /etc/hostname
 ln -s /usr/share/zoneinfo/$countrycode/$timezone /etc/localtime
 echo "LANG=$lang" >> /etc/locale.conf
@@ -72,15 +73,6 @@ passwd root
 useradd -m -g users -G wheel $username
 echo "Password for "$username
 passwd $username
-
-#add firmware
-mkdir ./temp && cd ./temp
-git clone https://aur.archlinux.org/aic94xx-firmware.git
-git clone https://aur.archlinux.org/wd719x-firmware.git
-cd aic94xx-firmware && sudo -u $username makepkg -sri --noconfirm
-cd /temp/wd719x-firmware  && sudo -u $username makepkg -sri --noconfirm
-cd / && rm -r /temp 
-sudo pacman -Syyu
 
 }
 export -f Buildout
