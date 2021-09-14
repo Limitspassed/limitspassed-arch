@@ -4,13 +4,6 @@
 echo -n "What drive do you want to install on? ie: /dev/vda "
 read device
 
-export lang="en_US.UTF-8"
-export locale="en_US.UTF-8 UTF-8"
-export username=$user2
-export hostname=$host
-export locale=$local
-
-
 ####Partition Drive####
 sudo parted $device mklabel gpt
 sudo parted $device mkpart ESP fat32 1MiB 513MiB
@@ -53,6 +46,12 @@ echo -n "What HostName would you like? "
 read host
 echo -n "what is your locale?  ex: America/Phoenix "
 read locale
+
+export lang="en_US.UTF-8"
+export locale="en_US.UTF-8 UTF-8"
+export username=$user2
+export hostname=$host
+export locale=$local
 
 #Set information for devices/timezones
 echo $hostname > /etc/hostname
