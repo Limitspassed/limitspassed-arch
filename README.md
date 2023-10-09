@@ -1,4 +1,4 @@
-# Automated Arch Install for Basic barebones install
+# Arch Distro Automated Install
 
 //Actions:
 
