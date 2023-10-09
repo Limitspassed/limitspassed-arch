@@ -1,3 +1,5 @@
+#This was for testing and not recommended to be used
+
 # Arch Distro Automated Install
 
 //Actions:
